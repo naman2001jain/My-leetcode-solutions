@@ -12,23 +12,29 @@
 class Solution {
 public:
     
-    void traverse(TreeNode* root, vector<int> &res, int level){
-        if(root==NULL){
-            return;
-        }
-        if(level==res.size()){
-            res.push_back(root->val);
-        }
-        traverse(root->right, res, level+1);
-        traverse(root->left, res, level+1);
-    }
+    
     
     vector<int> rightSideView(TreeNode* root) {
         if(root==NULL){
             return {};
         }
         vector<int> res;
-        traverse(root, res, 0);
+        //level order traversal
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int qsize = q.size();
+            for(int i=0;i<qsize;i++){
+                TreeNode* temp = q.front();
+                q.pop();
+                if(i==qsize-1){
+                    res.push_back(temp->val);
+                }
+                if(temp->left!=NULL) q.push(temp->left);
+                if(temp->right!=NULL) q.push(temp->right);
+                
+            }
+        }
         return res;
     }
 };
