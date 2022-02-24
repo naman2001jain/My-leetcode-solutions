@@ -20,8 +20,7 @@ public:
     string decodedString(string s){
         string currString = "";
         int currNo=0;
-        int prevNo;
-        string prevString;
+        
         stack<string> stringStack;
         stack<int> numStack;
         for(int i=0;i<s.size();i++){
@@ -38,9 +37,9 @@ public:
                 currString = "";
             }
             if(s[i]==']'){
-                prevNo = numStack.top();
+                int prevNo = numStack.top();
                 numStack.pop();
-                prevString = stringStack.top();
+                string prevString = stringStack.top();
                 stringStack.pop();
                 while(prevNo--){
                     prevString += currString;
