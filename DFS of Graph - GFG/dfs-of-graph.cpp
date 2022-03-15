@@ -20,7 +20,11 @@ class Solution {
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         vector<bool> visited(V, false);
         vector<int> res;
-        dfs(res, visited, V, adj,0);
+        for(int i=0;i<V;i++){
+            if(visited[i]==false){
+                dfs(res, visited, V, adj, i);
+            }
+        }
         return res;
     }
 };
