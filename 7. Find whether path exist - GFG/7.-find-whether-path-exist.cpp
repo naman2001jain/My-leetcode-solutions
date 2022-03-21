@@ -28,6 +28,10 @@ class Solution
             if(isSafe(grid, visited, nextx, nexty) && dfs(grid, visited, nextx, nexty, R, C)){
                 return true;
             }
+            //below mentioned code will give wrong answer
+            // if(isSafe(grid, visited, nextx, nexty) ){
+            //     return dfs(grid, visited, nextx, nexty, R, C);
+            // }
         }
         return false;
     }
