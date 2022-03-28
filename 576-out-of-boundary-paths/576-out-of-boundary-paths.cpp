@@ -1,38 +1,34 @@
 class Solution {
 public:
-    
-    vector<int> xMove = {1,0,0,-1};
-    vector<int> yMove = {0,1,-1,0};
-    int dp[55][55][55];
-    int mod = 1000000007;
-    int rec(int m, int n, int maxMove, int i, int j){
-        if(i<0 || j<0 || i>=m || j>=n){
-            return 1;
-        }
-        if(maxMove==0){
+    vector<int> xmoves = {0,0,1,-1};
+    vector<int> ymoves = {1,-1,0,0};
+    int r = pow(10,9) + 7;
+    int dp[55][55][55];//dp[maxMove][m][n]
+    int rec(const int &m, const int &n, int maxMove, int startRow, int startColumn){
+        if(maxMove<0){
             return 0;
         }
-        if(dp[i][j][maxMove]!=-1){
-            return dp[i][j][maxMove];
+        if(startRow<0 || startRow>=m || startColumn<0 || startColumn>=n){
+            return 1;
+        }      
+        if(dp[maxMove][startRow][startColumn]!=-1){
+            return dp[maxMove][startRow][startColumn];
         }
-        int ans = 0;
-        for(int k=0;k<4;k++){
-            int x = i+xMove[k];
-            int y = j+yMove[k];
-            ans =(ans%mod + rec(m,n,maxMove-1,x,y)%mod)%mod;
+        int res = 0;
+        for(int k=0;k<4;k++){   
+                res = (res%r + (rec(m, n, maxMove-1, startRow+xmoves[k], startColumn + ymoves[k]))%r)%r;
         }
-        return dp[i][j][maxMove] = ans;
+        return dp[maxMove][startRow][startColumn] = res%r;
     }
     
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        for(int i=0;i<55;i++){
-            for(int j=0;j<55;j++){
-                for(int k=0;k<55;k++){
-                    dp[i][j][k] = -1;
-                }
-            }
-        }
-        int ans = rec(m,n,maxMove, startRow, startColumn)%mod;
-        return ans;
+       for(int i=0;i<55;i++){
+           for(int j=0;j<55;j++){
+               for(int k=0;k<55;k++){
+                   dp[i][j][k] = -1;
+               }
+           }
+       }
+        return rec(m, n, maxMove, startRow, startColumn)%r;
     }
 };
