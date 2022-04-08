@@ -9,34 +9,29 @@ public:
     
     string reverseWords(string s) {
         string res="";
-        int i=0;
-        int n=s.length();
-        while(i<n && s[i]==' '){
-            i++;
-        }
-        string word="";
+        s += ' ';
+        stack<string> st;
+        string word = "";
+        int i=0, n=s.length();
         while(i<n){
-            if(s[i]!=' '){
-                word += s[i];
-            }else{
-                reverse(word.begin(), word.end());
-                res += word + " ";
-                word = "";
-                while(s[i+1]==' '){
-                    i++;
+            if(s[i]==' ') {
+                if(word.length()>0){
+                    st.push(word);
+                    word="";
                 }
-            }
+                i++;
+                continue;
+             }
+            word += s[i];
             i++;
         }
-        if(word.length()>0){
-            reverse(word.begin(), word.end());
-            res += word;
+        while(!st.empty()){
+            res += st.top();
+            st.pop();
+            if(!st.empty()){
+                res += " ";
+            }
         }
-        if(res[res.length()-1]==' '){
-            res = res.substr(0, res.length()-1);
-        }
-        reverse(res.begin(), res.end());
-        
         return res;
     }
 };
