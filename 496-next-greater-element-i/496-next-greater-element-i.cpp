@@ -7,16 +7,12 @@ public:
         int n2 = nums2.size();
         st.push(-1);
         for(int i=nums2.size()-1;i>=0;i--){
-            if(nums2[i]>st.top()){
                 while(nums2[i]>st.top() && st.top() != -1){
                     st.pop();
                 }
                 mp[nums2[i]] = st.top();
                 st.push(nums2[i]);
-            }else{
-                mp[nums2[i]] = st.top();
-                st.push(nums2[i]);
-            }
+            
         }
         vector<int> res(n1);
         for(int i=0;i<n1;i++){
