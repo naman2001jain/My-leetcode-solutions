@@ -15,9 +15,7 @@ public:
         for(auto x: mp){
             temp.push_back({x.first, x.second});
         }
-        if(mp.size()<=1){
-            return {(*(mp.begin())).first};
-        }
+        
         sort(temp.begin(), temp.end(), cmp);
         for(int i=0;i<k;i++){
             res.push_back(temp[i].first);
